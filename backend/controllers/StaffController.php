@@ -37,7 +37,7 @@ class StaffController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Staff::find(),
+            'query' => Staff::find()->orderBy(['id'=>SORT_DESC]),
         ]);
 
         return $this->render('index', [
