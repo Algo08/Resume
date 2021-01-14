@@ -97,23 +97,6 @@ class SiteController extends Controller
         }
     }
 
-    public function actionEditAdmin(){
-        $model = User::findOne(Yii::$app->user->id);
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isPost) {
-            $model->imageFile = \fv\yii\croppie\UploadedFile::getInstance($model, 'imageFile');
-
-            if ($model->upload()) {
-                $model->imageFile = null;
-            }
-            $model->save(false);
-
-            return $this->goHome();
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Logout action.
