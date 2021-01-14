@@ -20,6 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'options'=>[
+                'class'=>'table-responsive'
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
