@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Staff';
+$this->title = 'Ishchilar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="staff-index">
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Staff', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Ishchi qo`shish', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'full_name',
-            'date_of_birth',
+            'date_of_birth:date',
             'nation',
             [
                 'attribute' => 'data',

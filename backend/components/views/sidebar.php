@@ -27,7 +27,7 @@
     <li class="nav-item">
         <a class="nav-link" href="<?=\yii\helpers\Url::to('@web/staff')?>">
             <i class="fas fa-fw fa-users"></i>
-            <span>People</span></a>
+            <span>Ishchilar</span></a>
     </li>
 
     <!-- Divider -->

@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'date_of_birth')->widget(DatePicker::classname(), [
                 'name' => 'check_issue_date',
                 'value' => date('d-M-Y', strtotime('+2 days')),
-                'options' => ['placeholder' => 'Select issue date ...'],
+                'options' => ['placeholder' => 'Sanani tanlang...'],
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd',
                     'todayHighlight' => true
@@ -48,9 +48,10 @@ use yii\widgets\ActiveForm;
                                 'height' => 250,
                             ],
                             'boundary'=>[
-                                'width'=>300,
-                                'height' => 300
+                                'width'=>250,
+                                'height' => 250
                             ],
+                             'url' => \yii\helpers\Url::to('@web'.$model->image_location)
                         ],
                         'rotateCcwLabel' => '<i class="icon-undo"></i> 90&deg',
                         'rotateCwLabel' => '<i class="icon-rotate-right"></i> 90&deg',

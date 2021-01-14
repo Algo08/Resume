@@ -39,7 +39,7 @@ class Staff extends \yii\db\ActiveRecord
         return [
             [['full_name', 'date_of_birth', 'nation', 'phone', 'email'], 'required'],
             [['date_of_birth'], 'safe'],
-            [['phone'], 'string','max' => 10],
+            [['phone'], 'string','max' => 15],
             [['phone'], PhoneInputValidator::className()],
             [['data', 'places_of_work'], 'string'],
             [['full_name'], 'string', 'max' => 250],
@@ -59,11 +59,11 @@ class Staff extends \yii\db\ActiveRecord
             'full_name' => 'FISH',
             'date_of_birth' => 'Tug`ulgan sana',
             'nation' => 'Millati',
-            'data' => 'Data',
-            'phone' => 'Phone',
-            'email' => 'Email',
-            'places_of_work' => 'Places Of Work',
-            'image_location' => 'Image Location',
+            'data' => 'Ma`lumotlar',
+            'phone' => 'Tel nomeri',
+            'email' => 'Pochta',
+            'places_of_work' => 'Ishlagan joylari',
+            'image_location' => 'Rasm',
         ];
     }
 
