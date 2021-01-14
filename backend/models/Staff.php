@@ -39,7 +39,7 @@ class Staff extends \yii\db\ActiveRecord
         return [
             [['full_name', 'date_of_birth', 'nation', 'phone', 'email'], 'required'],
             [['date_of_birth'], 'safe'],
-            [['phone'], 'string'],
+            [['phone'], 'string','max' => 10],
             [['phone'], PhoneInputValidator::className()],
             [['data', 'places_of_work'], 'string'],
             [['full_name'], 'string', 'max' => 250],
@@ -56,9 +56,9 @@ class Staff extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'full_name' => 'Full Name',
-            'date_of_birth' => 'Date Of Birth',
-            'nation' => 'Nation',
+            'full_name' => 'FISH',
+            'date_of_birth' => 'Tug`ulgan sana',
+            'nation' => 'Millati',
             'data' => 'Data',
             'phone' => 'Phone',
             'email' => 'Email',

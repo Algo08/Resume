@@ -15,32 +15,55 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="row mb-4">
-        <?= $form->field($model, 'full_name',['options'=>['class'=>'col']])->textInput(['maxlength' => true]) ?>
+        <div class="col-lg-8">
+            <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'date_of_birth',['options'=>['class'=>'col']])->widget(DatePicker::classname(), [
-            'name' => 'check_issue_date',
-            'value' => date('d-M-Y', strtotime('+2 days')),
-            'options' => ['placeholder' => 'Select issue date ...'],
-            'pluginOptions' => [
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true
-            ]
-        ]); ?>
+            <?= $form->field($model, 'date_of_birth')->widget(DatePicker::classname(), [
+                'name' => 'check_issue_date',
+                'value' => date('d-M-Y', strtotime('+2 days')),
+                'options' => ['placeholder' => 'Select issue date ...'],
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true
+                ]
+            ]); ?>
 
-        <?= $form->field($model, 'nation',['options'=>['class'=>'col']])->textInput() ?>
+            <?= $form->field($model, 'nation')->textInput() ?>
+            <?=$form->field($model, 'phone')->widget(PhoneInput::className(), [
+                'defaultOptions'=> ['maxlength'=>15],
+                'jsOptions' => [
+                    'preferredCountries' => ['uz', 'ru', 's', 'gb'],
+                ]
+            ])?>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-lg-4">
+            <?=$form->field($model, 'imageFile',['options'=>['class'=>'text-center']])
+                ->widget(\fv\yii\croppie\Widget::class,
+                    [
+                        'format' => 'jpeg',
+                        'clientOptions' => [
+                            'viewport'=>[
+                                'width'=>250,
+                                'height' => 250,
+                            ],
+                            'boundary'=>[
+                                'width'=>300,
+                                'height' => 300
+                            ],
+                        ],
+                        'rotateCcwLabel' => '<i class="icon-undo"></i> 90&deg',
+                        'rotateCwLabel' => '<i class="icon-rotate-right"></i> 90&deg',
+                        'uploadButtonOptions' => [
+                            'value'=>'Yuklash',
+                        ],
+                    ])
+                ->label(false);?>
+        </div>
     </div>
 
     <div class="row mb-4">
-        <?=$form->field($model, 'phone',['options'=>['class'=>'col-6']])->widget(PhoneInput::className(), [
-            'jsOptions' => [
-                'preferredCountries' => ['uz', 'ru', 's', 'gb'],
-            ]
-        ])?>
-        <?= $form->field($model, 'email',['options'=>['class'=>'col-6']])->textInput(['maxlength' => true]) ?>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-6">
+        <div class="col-lg-6 border py-2 rounded">
             <div class="work-div">
                 <?php
                 if ($model->places_of_work){
@@ -54,10 +77,10 @@ use yii\widgets\ActiveForm;
                 }
                 ?>
             </div>
-            <?=Html::button('yana ish qo`shish',['class'=>'btn btn-success work-plus col-12','data-key'=>$keyWork+1])?>
+            <?=Html::button('<i class="fas fa-plus"></i>',['class'=>'btn btn-success work-plus float-right','data-key'=>$keyWork+1])?>
         </div>
 
-        <div class="col-6">
+        <div class="col-lg-6 border py-2 rounded">
             <div class="data-div">
                 <?php
                 if ($model->data){
@@ -72,36 +95,14 @@ use yii\widgets\ActiveForm;
                 ?>
             </div>
 
-            <?=Html::button('yana ma`lumot qo`shish',['class'=>'btn btn-success data-plus col-12','data-key'=>$keyData+1])?>
+            <?=Html::button('<i class="fas fa-plus"></i>',['class'=>'btn btn-success data-plus float-right','data-key'=>$keyData+1])?>
         </div>
     </div>
 
 
-    <div class="text-center mt-3">
-        <?=$form->field($model, 'imageFile')
-            ->widget(\fv\yii\croppie\Widget::class,
-                [
-                    'format' => 'jpeg',
-                    'clientOptions' => [
-                        'viewport'=>[
-                            'width'=>250,
-                            'height' => 250,
-                        ],
-                        'boundary'=>[
-                            'width'=>300,
-                            'height' => 300
-                        ],
-                    ],
-                    'rotateCcwLabel' => '<i class="icon-undo"></i> 90&deg',
-                    'rotateCwLabel' => '<i class="icon-rotate-right"></i> 90&deg',
-                    'uploadButtonOptions' => [
-                        'value'=>'test',
-                    ],
-                ])
-            ->label(false);?>
-    </div>
+
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Saqlash', ['class' => 'btn btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
