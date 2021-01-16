@@ -79,6 +79,7 @@ use yii\widgets\ActiveForm;
                 ?>
             </div>
             <?=Html::button('<i class="fas fa-plus"></i>',['class'=>'btn btn-success work-plus float-right','data-key'=>$keyWork+1])?>
+            <?=Html::button('<i class="fas fa-minus"></i>',['class'=>'btn btn-success work-minus mr-2 float-right'])?>
         </div>
 
         <div class="col-lg-6 border py-2 rounded">
@@ -97,6 +98,8 @@ use yii\widgets\ActiveForm;
             </div>
 
             <?=Html::button('<i class="fas fa-plus"></i>',['class'=>'btn btn-success data-plus float-right','data-key'=>$keyData+1])?>
+            <?=Html::button('<i class="fas fa-minus"></i>',['class'=>'btn btn-success data-minus mr-2 float-right'])?>
+
         </div>
     </div>
 
@@ -111,24 +114,40 @@ use yii\widgets\ActiveForm;
 $script = <<< JS
 
 var dataBtn = $('.data-plus');
+var dataMinusBtn = $('.data-minus');
 var workBtn = $('.work-plus');
+var workMinusBtn = $('.work-minus');
 var dataDiv = $('.data-div');
 var workDiv = $('.work-div');
 $(document).ready(function () {
+    
     dataBtn.click(function (event){
         event.preventDefault();
-        dataId = dataBtn.data('key');
+        dataId = $(this).attr('data-key');
         data = '<div class="form-group field-staff-config-'+dataId+'"><label for="staff-config-'+dataId+'">'+dataId+'-ma`lumot</label><textarea id="staff-config-'+dataId+'" class="form-control" name="Staff[config]['+dataId+']"></textarea><div class="help-block"></div></div>'
         dataDiv.append(data);
-        dataBtn.data('key',dataId+1);
+        dataId++;   
+        $(this).attr('data-key',dataId);
+    })
+    dataMinusBtn.click(function (event){
+        event.preventDefault();
+        $(".data-div .form-group").last().remove();
+        dataBtn.attr('data-key',dataBtn.attr('data-key')-1);    
     })
     
     workBtn.click(function (event){
         event.preventDefault();
-        workId = workBtn.data('key');
+        workId = $(this).attr('data-key');
         work = '<div class="form-group field-staff-work-'+workId+'"><label for="staff-work-'+workId+'">'+workId+'-Ishlagan joyi</label><textarea id="staff-work-'+workId+'" class="form-control" name="Staff[work]['+workId+']"></textarea><div class="help-block"></div></div>'
         workDiv.append(work);
-        workBtn.data('key',workId+1);
+        workId++;
+        $(this).attr('data-key',workId);
+    })
+    
+    workMinusBtn.click(function (event){
+        event.preventDefault();
+        $(".work-div .form-group").last().remove();
+        workBtn.attr('data-key',workBtn.attr('data-key')-1);    
     })
 })      
 JS;
