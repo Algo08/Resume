@@ -20,10 +20,10 @@ class AppAsset extends AssetBundle
     public $js = [
 //        'theme/js/sb-admin-2.min.js',
 //        'theme/vendor/bootstrap/js/bootstrap.bundle.min.js',
-        'theme/vendor/chart.js/Chart.min.js',
+//        'theme/vendor/chart.js/Chart.min.js',
 //        'theme/vendor/jquery-easing/jquery.easing.min.js',
-        'theme/js/demo/chart-area-demo.js',
-        'theme/js/demo/chart-bar-demo.js',
+//        'theme/js/demo/chart-area-demo.js',
+//        'theme/js/demo/chart-bar-demo.js',
 //        'theme/js/demo/chart-pie-demo.js',
 
     ];

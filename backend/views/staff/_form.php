@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
 <div class="staff-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['enableClientValidation'=>false]); ?>
 
     <div class="row mb-4">
         <div class="col-lg-8">
-            <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'full_name',['options'=>['class'=>'must-input']])->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'date_of_birth')->widget(DatePicker::classname(), [
+            <?= $form->field($model, 'date_of_birth',['options'=>['class'=>'must-input']])->widget(DatePicker::classname(), [
                 'name' => 'check_issue_date',
                 'value' => date('d-M-Y', strtotime('+2 days')),
                 'options' => ['placeholder' => 'Sanani tanlang...'],
@@ -28,14 +28,14 @@ use yii\widgets\ActiveForm;
                 ]
             ]); ?>
 
-            <?= $form->field($model, 'nation')->textInput() ?>
-            <?=$form->field($model, 'phone')->widget(PhoneInput::className(), [
+            <?= $form->field($model, 'nation',['options'=>['class'=>'must-input']])->textInput() ?>
+            <?=$form->field($model, 'phone',['options'=>['class'=>'must-input']])->widget(PhoneInput::className(), [
                 'defaultOptions'=> ['maxlength'=>15],
                 'jsOptions' => [
                     'preferredCountries' => ['uz', 'ru', 's', 'gb'],
                 ]
             ])?>
-            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'email',['options'=>['class'=>'must-input']])->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-lg-4">
             <?=$form->field($model, 'imageFile',['options'=>['class'=>'text-center']])
@@ -69,12 +69,12 @@ use yii\widgets\ActiveForm;
                 <?php
                 if ($model->places_of_work){
                     foreach (json_decode($model->places_of_work,true) as $keyWork=>$item):
-                        echo $form->field($model, 'work['.($keyWork).']', ['labelOptions' => ['label' => ($keyWork).'-qayerda ishlagan']])->textarea(['maxlength' => true,'value'=>$item]);
+                        echo $form->field($model, 'work['.($keyWork).']',['labelOptions' => ['label' => ($keyWork).'-qayerda ishlagan']])->textarea(['maxlength' => true,'value'=>$item,'class'=>'form-control must']);
                     endforeach;
                 }
                 else{
                     $keyWork=1;
-                    echo $form->field($model, 'work[1]', ['labelOptions' => ['label' => '1-qayerda ishlagan']])->textarea(['maxlength' => true]);
+                    echo $form->field($model, 'work[1]',['labelOptions' => ['label' => '1-qayerda ishlagan']])->textarea(['maxlength' => true,'class'=>'form-control must']);
                 }
                 ?>
             </div>
@@ -87,12 +87,12 @@ use yii\widgets\ActiveForm;
                 <?php
                 if ($model->data){
                     foreach (json_decode($model->data,true) as $keyData=>$item):
-                        echo $form->field($model, 'config['.($keyData).']', ['labelOptions' => ['label' => ($keyData).'-ma`lumot']])->textarea(['maxlength' => true,'value'=>$item]);
+                        echo $form->field($model, 'config['.($keyData).']',['labelOptions' => ['label' => ($keyData).'-ma`lumot']])->textarea(['maxlength' => true,'value'=>$item,'class'=>'form-control must']);
                     endforeach;
                 }
                 else{
                     $keyData=1;
-                    echo $form->field($model, 'config[1]', ['labelOptions' => ['label' => '1-ma`lumot']])->textarea(['maxlength' => true]);
+                    echo $form->field($model, 'config[1]',['labelOptions' => ['label' => '1-ma`lumot']])->textarea(['maxlength' => true,'class'=>'form-control must']);
                 }
                 ?>
             </div>
@@ -106,10 +106,12 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Saqlash', ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Saqlash', ['class' => 'btn btn-success submit-btn']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <?php
 $script = <<< JS
 
@@ -124,7 +126,7 @@ $(document).ready(function () {
     dataBtn.click(function (event){
         event.preventDefault();
         dataId = $(this).attr('data-key');
-        data = '<div class="form-group field-staff-config-'+dataId+'"><label for="staff-config-'+dataId+'">'+dataId+'-ma`lumot</label><textarea id="staff-config-'+dataId+'" class="form-control" name="Staff[config]['+dataId+']"></textarea><div class="help-block"></div></div>'
+        data = '<div class="form-group field-staff-config-'+dataId+'"><label for="staff-config-'+dataId+'">'+dataId+'-ma`lumot</label><textarea id="staff-config-'+dataId+'" class="form-control must" name="Staff[config]['+dataId+']"></textarea><div class="help-block"></div></div>'
         dataDiv.append(data);
         dataId++;   
         $(this).attr('data-key',dataId);
@@ -138,7 +140,7 @@ $(document).ready(function () {
     workBtn.click(function (event){
         event.preventDefault();
         workId = $(this).attr('data-key');
-        work = '<div class="form-group field-staff-work-'+workId+'"><label for="staff-work-'+workId+'">'+workId+'-Ishlagan joyi</label><textarea id="staff-work-'+workId+'" class="form-control" name="Staff[work]['+workId+']"></textarea><div class="help-block"></div></div>'
+        work = '<div class="form-group field-staff-work-'+workId+'"><label for="staff-work-'+workId+'">'+workId+'-Ishlagan joyi</label><textarea id="staff-work-'+workId+'" class="form-control must" name="Staff[work]['+workId+']"></textarea><div class="help-block"></div></div>'
         workDiv.append(work);
         workId++;
         $(this).attr('data-key',workId);
@@ -149,6 +151,29 @@ $(document).ready(function () {
         $(".work-div .form-group").last().remove();
         workBtn.attr('data-key',workBtn.attr('data-key')-1);    
     })
+    
+    $('.submit-btn').click(function(event) {
+        count=0;
+        event.preventDefault();
+        if ($('#staff-full_name').val() == ''){
+            Swal.fire('FISH Kiritilishi shart');
+            return false;
+        }
+        
+        var classList = $('.must');
+        $.each(classList, function(index, item) {
+            if (item.value == '') {
+                Swal.fire('asdasd');
+                count++;
+                return false;
+            }
+        });
+        if (count==0){
+            $('#w0').submit();
+        }
+
+        
+    });
 })      
 JS;
 $this->registerJs( $script );

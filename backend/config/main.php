@@ -10,13 +10,12 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'homeUrl' => '/resume',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
 
         'request' => [
-            'baseUrl' => '/resume',
+            'baseUrl' => '',
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
